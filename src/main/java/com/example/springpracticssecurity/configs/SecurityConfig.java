@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * Конфигурация безопасности
@@ -18,14 +19,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * Сервис для манпуляций пользователями.
      */
-    @Autowired
-    UserService userService;
+    private UserService userService;
 
     /**
-     * Кодировщик паролей
+     * Кодировщик паролей.
      */
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
-    PasswordEncoder passwordEncoder;
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     /**
      * Конфигурирует HttpSecurity.
@@ -37,10 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/css/**", "/login", "/logout").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().permitAll()
-                .and().logout().permitAll();
+                .formLogin().loginPage("/login").defaultSuccessUrl("/")
+                .and()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
     }
 
     /**

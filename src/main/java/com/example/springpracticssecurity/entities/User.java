@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.List;
 
 /**
- * Пользователь приложения
+ * Пользователь приложения.
  */
 @Data
 @NoArgsConstructor

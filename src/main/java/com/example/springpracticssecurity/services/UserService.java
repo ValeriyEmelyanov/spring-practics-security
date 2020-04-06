@@ -22,14 +22,22 @@ public class UserService implements UserDetailsService {
     /**
      * Служит для доступа к данным пользователя в базе данных.
      */
-    @Autowired
-    UserDao userDao;
+    private UserDao userDao;
 
     /**
-     * КОдировщик паролей
+     * Кодировщик паролей.
      */
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
-    PasswordEncoder passwordEncoder;
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     /**
      * Предварительная инициализация данных.

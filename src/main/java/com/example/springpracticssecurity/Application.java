@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * Класс для запуска приложения
+ * Класс для запуска приложения.
  */
 @SpringBootApplication
 public class Application {
@@ -21,7 +21,7 @@ public class Application {
     }
 
     /**
-     * Создает кодировщик паролей
+     * Создает кодировщик паролей.
      */
     @Bean
     public PasswordEncoder passwordEncoder() {

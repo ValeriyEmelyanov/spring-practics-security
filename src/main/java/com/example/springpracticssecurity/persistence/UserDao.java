@@ -20,8 +20,12 @@ public class UserDao {
     /**
      * Для обращения к ьазе данных MongoDB.
      */
-    @Autowired
     private MongoTemplate mongoTemplate;
+
+    @Autowired
+    public void setMongoTemplate(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
+    }
 
     /**
      * Получение Optional пользователя по имени пользователя.
