@@ -12,6 +12,7 @@
 * Maven
 * Tomcat
 * FreeMarker
+* Bootstrap
 
 ### Запуск MongoDB
 
@@ -19,9 +20,23 @@
 
 ### Сборка и запуск приложения
 
+Перед запуском приложения должен быть запущен сервер MongoDB.
+
 `mvn spring-boot:run`
 
 ### Endpoints
 * `/` - корневой каталог
 * `/login` - аутентификация пользователя
 * `/logout` - выход пользователя
+
+### Проблемы и их решения
+
+* Перестал работать logout. Помогло:
+```
+protected void configure(HttpSecurity http) throws Exception {
+    http
+        // ...
+        .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+}
+```
+Ответ нашел <a href="https://issue.life/questions/43598628">здесь</a>.
