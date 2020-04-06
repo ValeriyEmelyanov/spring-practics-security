@@ -41,7 +41,7 @@ public class UserService implements UserDetailsService {
 
     /**
      * Предварительная инициализация данных.
-     * Выполняется кодом один раз для простоты.
+     * Добавление пользователей выполняется кодом один раз для простоты.
      */
     @PostConstruct
     public void init() {
@@ -52,16 +52,40 @@ public class UserService implements UserDetailsService {
         });
         */
 
+        if (!userDao.findByUserName("admin").isPresent()) {
+            userDao.save(User.builder()
+            .username("admin")
+            .password(passwordEncoder.encode("admin"))
+            .authorities(ImmutableList.of(Role.ADMIN))
+                    .accountNonExpired(true)
+                    .accountNonLocked(true)
+                    .credentialsNonExpired(true)
+                    .enabled(true)
+                    .build());
+        }
+
+        if (!userDao.findByUserName("power").isPresent()) {
+            userDao.save(User.builder()
+            .username("power")
+            .password(passwordEncoder.encode("power"))
+            .authorities(ImmutableList.of(Role.POWER_USER))
+                    .accountNonExpired(true)
+                    .accountNonLocked(true)
+                    .credentialsNonExpired(true)
+                    .enabled(true)
+                    .build());
+        }
+
         if (!userDao.findByUserName("user").isPresent()) {
-        userDao.save(User.builder()
-                .username("user")
-                .password(passwordEncoder.encode("password"))
-                .authorities(ImmutableList.of(Role.USER))
-                .accountNonExpired(true)
-                .accountNonLocked(true)
-                .credentialsNonExpired(true)
-                .enabled(true)
-                .build());
+            userDao.save(User.builder()
+                    .username("user")
+                    .password(passwordEncoder.encode("password"))
+                    .authorities(ImmutableList.of(Role.USER))
+                    .accountNonExpired(true)
+                    .accountNonLocked(true)
+                    .credentialsNonExpired(true)
+                    .enabled(true)
+                    .build());
         }
     }
 

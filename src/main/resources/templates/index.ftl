@@ -11,6 +11,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1 class="page">Hello world!</h1>
+            <h2>You are logged with username: ${username} and with roles: ${roles}</h2>
         </div>
     </div>
 </div>
